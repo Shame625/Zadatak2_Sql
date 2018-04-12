@@ -1,0 +1,11 @@
+/*Selects oldest crew member*/
+SELECT name FROM public."Crew" ORDER BY age DESC LIMIT 1;
+
+/*Find name of the n-th crew member (second oldest, fifth oldest and so on) OFFSET takes parameter needed for n-th crew by age*/
+SELECT name FROM public."Crew" ORDER BY age DESC LIMIT 1 OFFSET 2;
+
+/*Find name of the most experienced crew member - that one who knows most aircrafts*/
+SELECT C.name, COUNT(C_P.Crew_Id) AS "Experience" FROM public."Crew_Plane" C_P INNER JOIN public."Crew" C ON c.Id = C_P.Crew_ID GROUP BY C.name ORDER BY COUNT(Crew_ID) DESC LIMIT 1;
+
+/*Find name of the least experienced crew member - that one who knows least aircrafts (counting from zero)*/
+SELECT C.name, COUNT(C_P.Crew_Id) AS "Experience" FROM public."Crew_Plane" C_P INNER JOIN public."Crew" C ON c.Id = C_P.Crew_ID GROUP BY C.name ORDER BY COUNT(Crew_ID) ASC LIMIT 1;
